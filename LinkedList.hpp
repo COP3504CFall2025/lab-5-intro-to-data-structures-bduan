@@ -150,7 +150,7 @@ public:
 			return *this;
 		}
 		else {
-			Node* temp = list.head;
+			Node* temp = other.head;
 			while (temp != nullptr) {
 				AddTail(temp->data);
 				temp = temp->next;

@@ -111,9 +111,10 @@ public:
                 for (size_t i = 0; i < curr_size_; i++) {
                     temp[i] = array_[i];
                 }
-            }
             delete[] array_;
             array_ = temp;
+            }
+            
         }
         array_[curr_size_] = data;
         curr_size_++;

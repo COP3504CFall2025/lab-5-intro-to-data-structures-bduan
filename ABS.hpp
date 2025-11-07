@@ -13,17 +13,17 @@ public:
     // Big 5 + Parameterized Constructor
     ABS() {
         capacity__ = 1;
-        curr_size___ = 0;
+        curr_size__ = 0;
         array_ = new T[capacity__];
     }
     explicit ABS(const size_t capacity) {
         capacity__ = capacity;
-        curr_size___ = 0;
-        array = new T[capacity__];
+        curr_size__ = 0;
+        array_ = new T[capacity__];
     }
     ABS(const ABS& other) {
         this->capacity__ = other.capacity__;
-        this->curr_size___ = other.curr_size___;
+        this->curr_size__ = other.curr_size__;
         this->array_ = new T[other.capacity__];
 
         for (size_t i = 0; i < other.capacity__; i++) {
@@ -84,7 +84,7 @@ public:
     }
 
     // Get the max size of the ABS
-    [[nodiscard]] size_t getMaxCapacity_() const noexcept {
+    [[nodiscard]] size_t getMaxCapacity() const noexcept {
         return capacity__;
     }
 
@@ -138,7 +138,7 @@ public:
 
 private:
     size_t capacity__;
-    size_t curr_size___;
+    size_t curr_size__;
     T* array_;
     static constexpr size_t scale_factor_ = 2;
 };

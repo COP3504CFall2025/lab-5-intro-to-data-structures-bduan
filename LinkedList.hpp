@@ -8,24 +8,30 @@ template <typename T>
 class LinkedList {
 public:
 	struct Node {
-    T data;
-    Node* prev;
-    Node* next;
+    	T data;
+    	Node* prev;
+    	Node* next;
+
+		Node(const &T d) {
+			data = d;
+			prev = nullptr;
+			next = nullptr;
+		}
 	};
 	// Behaviors
-	void PrintForward() const {
+	void printForward() const {
 		Node* temp = head;
 		while (temp != nullptr) {
-			std::cout << temp.data << std::endl;
+			std::cout << temp->data << std::endl;
 		}
-		temp = temp.next();
+		temp = temp->next();
 	}
 	void PrintReverse() const {
 		Node* temp = tail;
 		while (temp != nullptr) {
-			std::cout << temp.data<< std::endl;
+			std::cout << temp->data<< std::endl;
 		}
-		temp = temp.prev();
+		temp = temp->prev();
 	}
 
 	// Accessors
@@ -50,6 +56,7 @@ public:
 		Node* newHead = new Node(data);
 		if (head == nullptr) {
 			head = newHead;
+			tail = newHead;
 		}
 		else {
 			newHead->next = head;
@@ -62,6 +69,7 @@ public:
 		Node* newTail = new Node(data);
 		if (head == nullptr) {
 			tail = newTail;
+			head = newTail;
 		}
 		else {
 			newTail->prev = tail;
@@ -111,7 +119,7 @@ public:
 		return true;
 	}
 	void Clear() {
-		while (head != tail && head != nullptr){
+		while (head != nullptr && head != tail){
 			Node* temp = head;
 			head = head->next;
 			head->prev = nullptr;
@@ -137,19 +145,18 @@ public:
 		count = 0;
 		if (other.count == 0) {
 			head = nullptr;
+			tail = nullptr;
+			count = 0;
+			return *this;
 		}
 		else {
-			head = new Node(other->head);
-			Node* tempList = other->head->next;
-			if (tempList->head != tempList->tail) {
-				tempList = tempList->next;
-				while (count != other.count) {
-					AddTail(new Node(tempList->head));
-					tempList = tempList->next;
-				}	
+			Node* temp = list.head;
+			while (temp != nullptr) {
+				AddTail(temp->data);
+				temp = temp->next;
 			}
+			return *this;
 		}
-		return *this;
 	}
 	LinkedList<T>& operator=(const LinkedList<T>& rhs) {
 		if (this == &rhs) {
@@ -177,16 +184,14 @@ public:
 	LinkedList(const LinkedList<T>& list) {
 		if (list.count == 0) {
 			head = nullptr;
+			tail = nullptr;
+			count = 0;
 		}
 		else {
-			head = new Node(list->head);
-			Node* tempList = list->head->next;
-			if (tempList->head != tempList->tail) {
-				tempList = tempList->next;
-				while (count != list.count) {
-					AddTail(new Node(tempList->head));
-					tempList = tempList->next;
-				}	
+			Node* temp = list.head;
+			while (temp != nullptr) {
+				AddTail(temp->data);
+				temp = temp->next;
 			}
 		}
 	}

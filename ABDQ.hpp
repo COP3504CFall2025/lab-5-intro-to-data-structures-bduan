@@ -115,7 +115,7 @@ public:
         }
         else {
             if (size_ == capacity_) {
-                capacity *= SCALE_FACTOR;
+                capacity_ *= SCALE_FACTOR;
                 T* temp = new T[capacity_];
                 for (size_t i = 0; i < size_; i++) {
                     temp[i + 1] = data_[i];
@@ -156,7 +156,7 @@ public:
         if (size_ > 0) {
             T temp = data_[front_];
             front_ = (front_ + 1) % capacity_;
-            size--;
+            size_--;
             return temp;
         }
         else {
@@ -167,7 +167,7 @@ public:
         if (size_ > 0) {
             T temp = data_[back_ - 1];
             back_ = (back_ - 1 + capacity_) % capacity_;
-            size--;
+            size_--;
             return temp;
         }
         else {

@@ -115,8 +115,8 @@ public:
         }
         else {
             if (size_ == capacity_) {
-                capacity_*=2;
-                T* temp = new T[capacity_ * SCALE_FACTOR];
+                capacity *= SCALE_FACTOR;
+                T* temp = new T[capacity_];
                 for (size_t i = 0; i < size_; i++) {
                     temp[i + 1] = data_[i];
                 }
@@ -124,7 +124,8 @@ public:
                 data_ = temp;
             }
         }
-        data_[0] = item;
+        front_ = (front_ - 1 + capacity_) % capacity_;
+        data_[front_] = item;
         size_++;
     }
     void pushBack(const T& item) override {
@@ -136,8 +137,8 @@ public:
         }
         else {
             if (size_ == capacity_) {
-                capacity_*=2;
-                T* temp = new T[capacity_ * SCALE_FACTOR];
+                capacity_*=SCALE_FACTOR;
+                T* temp = new T[capacity_];
                 for (size_t i = 0; i < size_; i++) {
                     temp[i] = data_[i];
                 }
@@ -145,43 +146,32 @@ public:
                 data_ = temp;
             }
         }
-        data_[size_] = item;
+        back_ = (back_ + 1) % capacity_;
+        data_[back_] = item;
         size_++;
-        back_++;
     }
 
     // Deletion
     T popFront() override {
         if (size_ > 0) {
-            --size_;
-            T tempVar = data_[front_];
-            T* temp = new T[size_];
-            for (size_t i = 1; i < size_; i++) {
-                    temp[i] = data_[i];
-            }
-            delete[] data_;
-            data_ = temp;
-            return tempVar;
+            T temp = data_[front_];
+            front_ = (front_ + 1) % capacity_;
+            size--;
+            return temp;
         }
         else {
-            throw std::runtime_error("Out of range");
+            throw std::runtime_error("Nothing to pop");
         }
     }
     T popBack() override {
         if (size_ > 0) {
-            T tempVar = data_[back_];
-            --size_;
-            T* temp = new T[size_];
-            for (size_t i = 0; i < size_; i++) {
-                    temp[i] = data_[i];
-            }
-            delete[] data_;
-            data_ = temp;
-            --back_;
-            return tempVar;
+            T temp = data_[back_ - 1];
+            back_ = (back_ - 1 + capacity_) % capacity_;
+            size--;
+            return temp;
         }
         else {
-            throw std::runtime_error("Out of range");
+            throw std::runtime_error("Nothing to pop");
         }
     }
 
@@ -190,7 +180,7 @@ public:
         return data_[front_];
     }
     const T& back() const override {
-        return data_[back_];
+        return data_[back_ - 1];
     }
 
     // Getters

@@ -130,7 +130,7 @@ public:
         else {
             front_ = (front_ + 1) % capacity_;
             data_[front_] = item;
-            size++;
+            size_++;
         }
     }
     void pushBack(const T& item) override {
@@ -156,7 +156,7 @@ public:
         else {
             back_ = (back_ + 1) % capacity_;
             data_[back_] = item;
-            size++;
+            size_++;
         }
     }
 

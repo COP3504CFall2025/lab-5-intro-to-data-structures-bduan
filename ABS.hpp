@@ -26,7 +26,7 @@ public:
         this.curr_size__ = other.curr_size__;
         this->array_ = new T[other.capacity_];
 
-        for (int i = 0; i < other.capacity_; i++) {
+        for (size_t i = 0; i < other.capacity_; i++) {
             this->array_[i] = other->>array_[i];
         }
     }
@@ -52,7 +52,7 @@ public:
         this.curr_size_ = other.curr_size_;
         this->array_ = temp;
 
-        for (int i = 0; i < other.capacity_; i++) {
+        for (size_t i = 0; i < other.capacity_; i++) {
             this->array_[i] = other->array_[i];
         }
         return *this;
@@ -105,7 +105,7 @@ public:
             if (curr_size_ == capacity_) {
                 capacity_*=2;
                 T* temp = new T[capacity_ * scale_factor_];
-                for (int i = 0; i < curr_size_; i++) {
+                for (size_t i = 0; i < curr_size_; i++) {
                     temp[i] = array_[i];
                 }
             }
@@ -124,7 +124,7 @@ public:
         if (curr_size_ > 0) {
             --curr_size_;
             T* temp = new T[curr_size_];
-            for (int i = 0; i < curr_size_; i++) {
+            for (size_t i = 0; i < curr_size_; i++) {
                     temp[i] = array_[i];
             }
             delete[] array_;

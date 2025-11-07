@@ -34,61 +34,61 @@ public:
         data_ = new T[capacity];
     }
     ABDQ(const ABDQ& other) {
-        this.capacity_ = other.capacity_;
-        this.size_ = other.size_;
-        this.front_ = other.front_;
-        this.back_ = other.back_;
+        this->capacity_ = other.capacity_;
+        this->size_ = other.size_;
+        this->front_ = other.front_;
+        this->back_ = other.back_;
         this->data_ = new T[capacity_];
 
-        for (int i = 0; i < size_; i++) {
+        for (size_t i = 0; i < size_; i++) {
             this->data_[i] = other.data_[i];
         }
     }
     ABDQ(ABDQ&& other) noexcept {
-        this.capacity_ = other.capacity_;
-        this.size_ = other.size_;
-        this.front_ = other.front_;
-        this.back_ = other.back_;
-        this->data_ = other->data_;
+        this->capacity_ = other.capacity_;
+        this->size_ = other.size_;
+        this->front_ = other.front_;
+        this->back_ = other.back_;
+        this->data_ = other.data_;
 
-        other->data_ = nullptr;
+        other.data_ = nullptr;
         other.capacity = 0;
         other.size_ = 0;
         other.front_ = 0;
         other.back_ = 0;
     }
     ABDQ& operator=(const ABDQ& other) {
-        if (this == other) {
+        if (this == &other) {
             return *this;
         }
 
         T* temp = new T[other.capacity_];
-        delete[] this->data;
+        delete[] this->data_;
 
-        this.capacity_ = other.capacity_;
-        this.size_ = other.size_;
-        this.front_ = other.front_;
-        this.back_ = other.back_;
-        this.data_ = temp;
+        this->capacity_ = other.capacity_;
+        this->size_ = other.size_;
+        this->front_ = other.front_;
+        this->back_ = other.back_;
+        this->data_ = temp;
 
-        for (int i = 0; i < other.size_; i++) {
+        for (size_t i = 0; i < other.size_; i++) {
             this->data_[i] = other.data_[i];
         }
         return *this;
 
     }
     ABDQ& operator=(ABDQ&& other) noexcept {
-        if (this == other) {
+        if (this == &other) {
             return *this;
         }
         delete[] this->data_;
-        this->data_ = other->data;
-        this.size_ = other.size_;
-        this.capacity_ = other.capacity;
-        this.front_ = other.front_;
-        this.back_ = other.back_;
+        this->data_ = other.data;
+        this->size_ = other.size_;
+        this->capacity_ = other.capacity_;
+        this->front_ = other.front_;
+        this->back_ = other.back_;
 
-        other->data_ = nullptr;
+        other.data_ = nullptr;
         other.size_ = 0;
         other.capacity_ = 0;
         other.front_ = 0;
@@ -117,7 +117,7 @@ public:
             if (size_ == capacity_) {
                 capacity_*=2;
                 T* temp = new T[capacity_ * SCALE_FACTOR];
-                for (int i = 0; i < size_; i++) {
+                for (size_t i = 0; i < size_; i++) {
                     temp[i + 1] = data_[i];
                 }
                 delete[] data_;
@@ -138,7 +138,7 @@ public:
             if (size_ == capacity_) {
                 capacity_*=2;
                 T* temp = new T[capacity_ * SCALE_FACTOR];
-                for (int i = 0; i < size_; i++) {
+                for (size_t i = 0; i < size_; i++) {
                     temp[i] = data_[i];
                 }
                 delete[] data_;
@@ -154,12 +154,14 @@ public:
     T popFront() override {
         if (size_ > 0) {
             --size_;
+            T tempVar = data_[front_];
             T* temp = new T[size_];
-            for (int i = 1; i < size_; i++) {
+            for (size_t i = 1; i < size_; i++) {
                     temp[i] = data_[i];
             }
             delete[] data_;
             data_ = temp;
+            return tempVar;
         }
         else {
             throw std::runtime_error("Out of range");
@@ -167,13 +169,16 @@ public:
     }
     T popBack() override {
         if (size_ > 0) {
+            T tempVar = data_[back_];
             --size_;
             T* temp = new T[size_];
-            for (int i = 0; i < size_; i++) {
+            for (size_t i = 0; i < size_; i++) {
                     temp[i] = data_[i];
             }
             delete[] data_;
             data_ = temp;
+            --back_;
+            return tempVar;
         }
         else {
             throw std::runtime_error("Out of range");

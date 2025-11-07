@@ -128,7 +128,7 @@ public:
             size_++;
         }
         else {
-            front_ = (front_ + 1) % capacity_;
+            front_ = (front_ - 1 + capacity_) % capacity_;
             data_[front_] = item;
             size_++;
         }
@@ -154,8 +154,8 @@ public:
             size_++;
         }
         else {
-            back_ = (back_ + 1) % capacity_;
             data_[back_] = item;
+            back_ = (back_ + 1) % capacity_;
             size_++;
         }
     }
@@ -174,8 +174,8 @@ public:
     }
     T popBack() override {
         if (size_ > 0) {
-            T temp = data_[back_];
             back_ = (back_ - 1 + capacity_) % capacity_;
+            T temp = data_[back_];
             size_--;
             return temp;
         }
@@ -186,10 +186,20 @@ public:
 
     // Access
     const T& front() const override {
-        return data_[front_];
+        if (size_ == 0) {
+            throw std::runtime_error("empty");
+        }
+        else {
+            return data_[front_];
+        }
     }
     const T& back() const override {
-        return data_[back_];
+        if (size_ == 0) {
+            throw std::runtime_error("empty");
+        }
+        else {
+            return data_[(back_ - 1 + capacity_) % capacity_];
+        }
     }
 
     // Getters

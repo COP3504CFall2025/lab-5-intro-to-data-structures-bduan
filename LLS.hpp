@@ -11,7 +11,7 @@ private:
     LinkedList<T> list;
 public:
     // Constructor
-    LLS() : list(LinkedList()) {}
+    LLS() : list() {}
 
     // Insertion
     void push(const T& item) override {
@@ -27,6 +27,9 @@ public:
 
     // Access
     T peek() const override {
+        if (list.getHead() == nullptr) {
+            throw std::runtime_error("empty");
+        }
         return list.getHead().data;
     }
 

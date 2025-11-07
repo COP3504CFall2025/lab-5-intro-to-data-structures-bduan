@@ -7,7 +7,6 @@ using namespace std;
 template <typename T>
 class LinkedList {
 public:
-	template <typename T>
 	struct Node {
     T data;
     Node* prev;
@@ -148,7 +147,7 @@ public:
 				}	
 			}
 		}
-
+		return this;
 	}
 	LinkedList<T>& operator=(const LinkedList<T>& rhs) {
 		if (this == other) {
@@ -163,6 +162,8 @@ public:
 		other.head = nullptr;
 		other.tail = nullptr;
 		other.count = 0;
+
+		return this;
 	}
 
 	// Construction/Destruction

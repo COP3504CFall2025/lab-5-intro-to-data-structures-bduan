@@ -12,7 +12,7 @@ public:
     	Node* prev;
     	Node* next;
 
-		Node(const &T d) {
+		Node(const T& d) {
 			data = d;
 			prev = nullptr;
 			next = nullptr;
@@ -24,14 +24,14 @@ public:
 		while (temp != nullptr) {
 			std::cout << temp->data << std::endl;
 		}
-		temp = temp->next();
+		temp = temp->next;
 	}
 	void PrintReverse() const {
 		Node* temp = tail;
 		while (temp != nullptr) {
 			std::cout << temp->data<< std::endl;
 		}
-		temp = temp->prev();
+		temp = temp->prev;
 	}
 
 	// Accessors
@@ -140,9 +140,9 @@ public:
 		if (this == &other) {
 			return *this;
 		}
-		delete head;
-		delete tail;
-		count = 0;
+
+		Clear();
+		
 		if (other.count == 0) {
 			head = nullptr;
 			tail = nullptr;
@@ -162,15 +162,14 @@ public:
 		if (this == &rhs) {
 			return *this;
 		}
-		delete head;
-		delete tail;
-		head = rhs.head;
-		tail = rhs.tail;
-		count = rhs.count;
+		Clear();
 
-		rhs.head = nullptr;
-		rhs.tail = nullptr;
-		rhs.count = 0;
+		Node* temp = rhs.head;
+
+		while (temp != nullptr) {
+				AddTail(temp->data);
+				temp = temp->next;
+		}
 
 		return *this;
 	}

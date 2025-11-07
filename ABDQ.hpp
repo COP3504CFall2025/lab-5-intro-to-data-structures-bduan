@@ -112,21 +112,26 @@ public:
             capacity_ = 1;   
             delete[] data_;
             data_ = temp;
+            size_++;
+        }
+        else if (size_ == capacity_) {   
+            capacity_ *= SCALE_FACTOR;
+            T* temp = new T[capacity_];
+            temp[0] = item;
+            for (size_t i = 1; i <= size_; i++) {
+                temp[i] = data_[(front_ + i) % capacity_];
+            }
+            delete[] data_;
+            data_ = temp;
+            front_ = 0;
+            back_ = size_;
+            size_++;
         }
         else {
-            if (size_ == capacity_) {
-                capacity_ *= SCALE_FACTOR;
-                T* temp = new T[capacity_];
-                for (size_t i = 0; i < size_; i++) {
-                    temp[i + 1] = data_[i];
-                }
-                delete[] data_;
-                data_ = temp;
-            }
+            front_ = (front_ + 1) % capacity_;
+            data_[front_] = item;
+            size++;
         }
-        front_ = (front_ - 1 + capacity_) % capacity_;
-        data_[front_] = item;
-        size_++;
     }
     void pushBack(const T& item) override {
         if (capacity_ == 0) {
@@ -135,20 +140,24 @@ public:
             delete[] data_;
             data_ = temp;
         }
-        else {
-            if (size_ == capacity_) {
-                capacity_*=SCALE_FACTOR;
-                T* temp = new T[capacity_];
-                for (size_t i = 0; i < size_; i++) {
-                    temp[i] = data_[i];
-                }
-                delete[] data_;
-                data_ = temp;
+        else if (size_ == capacity_) {
+            capacity_*=SCALE_FACTOR;
+            T* temp = new T[capacity_];
+            for (size_t i = 0; i < size_; i++) {
+                temp[i] = data_[(front_ + i) % capacity_];
             }
+            delete[] data_;
+            data_ = temp;
+            front_ = 0;
+            back_ = size_;
+            data_[back_] = item;
+            size_++;
         }
-        back_ = (back_ + 1) % capacity_;
-        data_[back_] = item;
-        size_++;
+        else {
+            back_ = (back_ + 1) % capacity_;
+            data_[back_] = item;
+            size++;
+        }
     }
 
     // Deletion
@@ -165,7 +174,7 @@ public:
     }
     T popBack() override {
         if (size_ > 0) {
-            T temp = data_[back_ - 1];
+            T temp = data_[back_];
             back_ = (back_ - 1 + capacity_) % capacity_;
             size_--;
             return temp;
@@ -180,7 +189,7 @@ public:
         return data_[front_];
     }
     const T& back() const override {
-        return data_[back_ - 1];
+        return data_[back_];
     }
 
     // Getters

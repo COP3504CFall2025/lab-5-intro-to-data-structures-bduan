@@ -82,7 +82,7 @@ public:
             return *this;
         }
         delete[] this->data_;
-        this->data_ = other.data;
+        this->data_ = other.data_;
         this->size_ = other.size_;
         this->capacity_ = other.capacity_;
         this->front_ = other.front_;

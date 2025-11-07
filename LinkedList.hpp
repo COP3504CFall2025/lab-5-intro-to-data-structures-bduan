@@ -72,7 +72,7 @@ public:
 	}
 
 	// Removal
-	bool removeHead() {
+	bool RemoveHead() {
 		if (head == nullptr) {
 			return false;
 		}
@@ -91,7 +91,7 @@ public:
 		count--;
 		return true;
 	}
-	bool removeTail() {
+	bool RemoveTail() {
 		if (tail == nullptr) {
 			return false;
 		}
@@ -129,8 +129,8 @@ public:
 
 	// Operators
 	LinkedList<T>& operator=(LinkedList<T>&& other) noexcept {
-		if (this == other) {
-			return this;
+		if (this == &other) {
+			return *this;
 		}
 		delete head;
 		delete tail;
@@ -139,7 +139,7 @@ public:
 			head = nullptr;
 		}
 		else {
-			head = new Node(list->head);
+			head = new Node(other->head);
 			Node* tempList = list->head->next;
 			if (tempList->head != tempList->tail) {
 				tempList = tempList->next;
@@ -149,7 +149,7 @@ public:
 				}	
 			}
 		}
-		return this;
+		return *this;
 	}
 	LinkedList<T>& operator=(const LinkedList<T>& rhs) {
 		if (this == &rhs) {

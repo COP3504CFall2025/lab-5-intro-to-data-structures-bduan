@@ -110,6 +110,8 @@ public:
         if (capacity_ == 0) {
             T* temp = new T[1];      
             capacity_ = 1;   
+            delete[] data_;
+            data_ = temp;
         }
         else {
             if (size_ == capacity_) {
@@ -118,10 +120,10 @@ public:
                 for (int i = 0; i < size_; i++) {
                     temp[i + 1] = data_[i];
                 }
+                delete[] data_;
+                data_ = temp;
             }
         }
-        delete[] data_;
-        data_ = temp;
         data_[0] = item;
         size_++;
     }

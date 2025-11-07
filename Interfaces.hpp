@@ -6,6 +6,7 @@
 
 template <typename T>
 class StackInterface {
+    virtual ~StackInterface() = default;
     virtual void push(const T& item)=0;
     virtual T pop()=0;
     virtual T peek() const=0;
@@ -15,6 +16,7 @@ class StackInterface {
 
 template <typename T>
 class QueueInterface {
+    virtual ~QueueInterface() = default;
     virtual void enqueue(const T& item)=0;
     virtual T dequeue()=0;
     virtual T peek() const=0;
@@ -24,6 +26,7 @@ class QueueInterface {
 
 template <typename T>
 class DequeInterface {
+    virtual ~DequeInterface() = default;
     virtual void pushFront(const T& item)=0;
     virtual void pushBack(const T& item)=0;
     virtual T popFront()=0;

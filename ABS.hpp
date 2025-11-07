@@ -22,53 +22,53 @@ public:
         array = new T[capacity_];
     }
     ABS(const ABS& other) {
-        this.capacity_ = other.capacity_;
-        this.curr_size__ = other.curr_size__;
+        this->capacity_ = other.capacity_;
+        this->curr_size__ = other.curr_size__;
         this->array_ = new T[other.capacity_];
 
         for (size_t i = 0; i < other.capacity_; i++) {
-            this->array_[i] = other->>array_[i];
+            this->array_[i] = other.array_[i];
         }
     }
     ABS& operator=(const ABS& rhs) {
-        this.capacity_ = other.capacity_;
-        this.curr_size_ = other.curr_size_;
-        this->array_ = other->array_;
+        this->capacity_ = other.capacity_;
+        this->curr_size_ = other.curr_size_;
+        this->array_ = other.array_;
 
         other.capacity_ = 0;
         other.curr_size_ = 0;
-        other->array_ = nullptr;
+        other.array_ = nullptr;
 
     }
     ABS(ABS&& other) noexcept {
-        if (this == other) {
+        if (this == &other) {
             return *this;
         }
 
         T* temp = new T[other.capacity_];
         delete this->array_;
 
-        this.capacity_ = other.capacity_;
-        this.curr_size_ = other.curr_size_;
+        this->capacity_ = other.capacity_;
+        this->curr_size_ = other.curr_size_;
         this->array_ = temp;
 
         for (size_t i = 0; i < other.capacity_; i++) {
-            this->array_[i] = other->array_[i];
+            this->array_[i] = other.array_[i];
         }
         return *this;
     }
     ABS& operator=(ABS&& rhs) noexcept {
-        if (this == other) {
+        if (this == &other) {
             return *this;
         }
         delete this->array_;
-        this.capacity_ = other.capacity_;
-        this.curr_size_ = other.curr_size_;
-        this->array_ = other->array_;
+        this->capacity_ = other.capacity_;
+        this->curr_size_ = other.curr_size_;
+        this->array_ = other.array_;
 
         other.capacity_ = 0;
         other.curr_size_ = 0;
-        other->array_ = nullptr;
+        other.array_ = nullptr;
 
         return *this;
     }

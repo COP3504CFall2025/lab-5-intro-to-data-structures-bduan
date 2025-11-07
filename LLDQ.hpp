@@ -31,7 +31,7 @@ public:
             throw std::runtime_error("Nothing to pop");
         }
         else {
-            T temp = list.getHead();
+            T temp = list.getHead()->data;
             list.RemoveHead();
             return temp;
         }
@@ -41,7 +41,7 @@ public:
             throw std::runtime_error("Nothing to pop");
         }
         else {
-            T temp = list.getTail();
+            T temp = list.getTail()->data;
             list.RemoveTail();
             return temp;
         }
@@ -49,10 +49,10 @@ public:
 
     // Element Accessors
     const T& front() const override {
-        return list.getHead().data;
+        return list.getHead()->data;
     }
     const T& back() const override {
-        return list.getTail().data;
+        return list.getTail()->data;
     }
 
     // Getter

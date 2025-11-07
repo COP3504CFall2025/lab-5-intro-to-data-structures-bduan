@@ -20,8 +20,8 @@ public:
 
     // Deletion
     T pop() override {
-        T temp = list.getHead();
-        list.removeHead();
+        T temp = list.getHead()->data;
+        list.RemoveHead();
         return temp;
     }
 
@@ -30,7 +30,7 @@ public:
         if (list.getHead() == nullptr) {
             throw std::runtime_error("empty");
         }
-        return list.getHead().data;
+        return list.getHead()->data;
     }
 
     //Getters

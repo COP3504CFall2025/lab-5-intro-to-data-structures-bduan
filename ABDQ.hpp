@@ -23,7 +23,7 @@ public:
         size_ = 0;
         front_ = 0;
         back_ = 0;
-        data_ = new T[capacity];
+        data_ = new T[capacity_];
     }
 
     explicit ABDQ(std::size_t capacity) {
@@ -114,7 +114,7 @@ public:
         else {
             if (size_ == capacity_) {
                 capacity_*=2;
-                T* temp = new T[capacity_ * SCALE_FACTOR_];
+                T* temp = new T[capacity_ * SCALE_FACTOR];
                 for (int i = 0; i < size_; i++) {
                     temp[i + 1] = data_[i];
                 }
@@ -129,18 +129,20 @@ public:
         if (capacity_ == 0) {
             T* temp = new T[1];      
             capacity_ = 1;   
+            delete[] data_;
+            data_ = temp;
         }
         else {
             if (size_ == capacity_) {
                 capacity_*=2;
-                T* temp = new T[capacity_ * SCALE_FACTOR_];
+                T* temp = new T[capacity_ * SCALE_FACTOR];
                 for (int i = 0; i < size_; i++) {
                     temp[i] = data_[i];
                 }
+                delete[] data_;
+                data_ = temp;
             }
         }
-        delete[] data_;
-        data_ = temp;
         data_[size_] = item;
         size_++;
         back_++;

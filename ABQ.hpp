@@ -49,7 +49,7 @@ public:
         this->curr_size_ = rhs.curr_size_;
         this->array_ = temp;
 
-        for (size_t i = 0; i < other.capacity_; i++) {
+        for (size_t i = 0; i < rhs.capacity_; i++) {
             this->array_[i] = rhs.array_[i];
         }
         return *this;
@@ -101,6 +101,8 @@ public:
         if (capacity_ == 0) {
             T* temp = new T[1];      
             capacity_ = 1;   
+            delete[] array_;
+            array_ = temp;
         }
         else {
             if (curr_size_ == capacity_) {
@@ -110,9 +112,9 @@ public:
                     temp[i] = array_[i];
                 }
             }
+            delete[] array_;
+            array_ = temp;
         }
-        delete[] array_;
-        array_ = temp;
         array_[curr_size_] = data;
         curr_size_++;
     }

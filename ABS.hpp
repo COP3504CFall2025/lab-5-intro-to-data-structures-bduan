@@ -13,80 +13,79 @@ public:
     // Big 5 + Parameterized Constructor
     ABS() {
         capacity__ = 1;
-        curr_size__ = 0;
-        array_ = new T[capacity_];
+        curr_size___ = 0;
+        array_ = new T[capacity__];
     }
     explicit ABS(const size_t capacity) {
-        capacity_ = capacity;
-        curr_size__ = 0;
-        array = new T[capacity_];
+        capacity__ = capacity;
+        curr_size___ = 0;
+        array = new T[capacity__];
     }
     ABS(const ABS& other) {
-        this->capacity_ = other.capacity_;
-        this->curr_size__ = other.curr_size__;
-        this->array_ = new T[other.capacity_];
+        this->capacity__ = other.capacity__;
+        this->curr_size___ = other.curr_size___;
+        this->array_ = new T[other.capacity__];
 
-        for (size_t i = 0; i < other.capacity_; i++) {
+        for (size_t i = 0; i < other.capacity__; i++) {
             this->array_[i] = other.array_[i];
         }
     }
     ABS& operator=(const ABS& rhs) {
-        this->capacity_ = other.capacity_;
-        this->curr_size_ = other.curr_size_;
-        this->array_ = other.array_;
-
-        other.capacity_ = 0;
-        other.curr_size_ = 0;
-        other.array_ = nullptr;
-
-    }
-    ABS(ABS&& other) noexcept {
-        if (this == &other) {
+        if (this == &rhs) {
             return *this;
         }
 
-        T* temp = new T[other.capacity_];
+        T* temp = new T[rhs.capacity__];
         delete this->array_;
 
-        this->capacity_ = other.capacity_;
-        this->curr_size_ = other.curr_size_;
+        this->capacity__ = rhs.capacity__;
+        this->curr_size__ = rhs.curr_size__;
         this->array_ = temp;
 
-        for (size_t i = 0; i < other.capacity_; i++) {
-            this->array_[i] = other.array_[i];
+        for (size_t i = 0; i < rhs.capacity__; i++) {
+            this->array_[i] = rhs.array_[i];
         }
         return *this;
     }
+    ABS(ABS&& other) noexcept {
+        this->capacity__ = other.capacity__;
+        this->curr_size__ = other.curr_size__;
+        this->array_ = other.array_;
+
+        other.capacity__ = 0;
+        other.curr_size__ = 0;
+        other.array_ = nullptr;
+    }
     ABS& operator=(ABS&& rhs) noexcept {
-        if (this == &other) {
+        if (this == &rhs) {
             return *this;
         }
         delete this->array_;
-        this->capacity_ = other.capacity_;
-        this->curr_size_ = other.curr_size_;
-        this->array_ = other.array_;
+        this->capacity__ = rhs.capacity__;
+        this->curr_size__ = rhs.curr_size__;
+        this->array_ = rhs.array_;
 
-        other.capacity_ = 0;
-        other.curr_size_ = 0;
-        other.array_ = nullptr;
+        rhs.capacity__ = 0;
+        rhs.curr_size__ = 0;
+        rhs.array_ = nullptr;
 
         return *this;
     }
     ~ABS() noexcept override {
         delete[] array_;
         array_ = nullptr;
-        capacity_ = 0;
-        curr_size_ = 0;
+        capacity__ = 0;
+        curr_size__ = 0;
     }
 
     // Get the number of items in the ABS
     [[nodiscard]] size_t getSize() const noexcept override {
-        return curr_size_;
+        return curr_size__;
     }
 
     // Get the max size of the ABS
-    [[nodiscard]] size_t getMaxcapacity_() const noexcept {
-        return capacity_;
+    [[nodiscard]] size_t getMaxCapacity_() const noexcept {
+        return capacity__;
     }
 
     // Return underlying data for the stack
@@ -97,38 +96,40 @@ public:
     // Push item onto the stack
     void push(const T& data) override {
         // code/concepts taken from iDynamArray lab
-        if (capacity_ == 0) {
+        if (capacity__ == 0) {
             T* temp = new T[1];      
-            capacity_ = 1;   
+            capacity__ = 1;   
         }
         else {
-            if (curr_size_ == capacity_) {
-                capacity_*=2;
-                T* temp = new T[capacity_ * scale_factor_];
-                for (size_t i = 0; i < curr_size_; i++) {
+            if (curr_size__ == capacity__) {
+                capacity__*=scale_factor_;
+                T* temp = new T[capacity];
+                for (size_t i = 0; i < curr_size__; i++) {
                     temp[i] = array_[i];
                 }
             }
         }
         delete[] array_;
         array_ = temp;
-        array_[curr_size_] = data;
-        curr_size_++;
+        array_[curr_size__] = data;
+        curr_size__++;
     }
 
     T peek() const override {
-        return array_[curr_size_];
+        return array_[curr_size__];
     }
 
     T pop() override {
-        if (curr_size_ > 0) {
-            --curr_size_;
-            T* temp = new T[curr_size_];
-            for (size_t i = 0; i < curr_size_; i++) {
+        if (curr_size__ > 0) {
+            T tempVal = array_[curr_size - 1];
+            --curr_size__;
+            T* temp = new T[curr_size__];
+            for (size_t i = 0; i < curr_size__; i++) {
                     temp[i] = array_[i];
             }
             delete[] array_;
             array_ = temp;
+            return tempVal;
         }
         else {
             throw std::runtime_error("Out of range");
@@ -137,7 +138,7 @@ public:
 
 private:
     size_t capacity__;
-    size_t curr_size__;
+    size_t curr_size___;
     T* array_;
     static constexpr size_t scale_factor_ = 2;
 };

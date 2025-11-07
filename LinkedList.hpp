@@ -178,18 +178,15 @@ public:
 		count = 0;
 	}
 	LinkedList(const LinkedList<T>& list) {
-		if (list.count == 0) {
-			head = nullptr;
-			tail = nullptr;
-			count = 0;
+		head = nullptr;
+		tail = nullptr;
+		count = 0;
+		Node* temp = list.head;
+		while (temp != nullptr) {
+			AddTail(temp->data);
+			temp = temp->next;
 		}
-		else {
-			Node* temp = list.head;
-			while (temp != nullptr) {
-				AddTail(temp->data);
-				temp = temp->next;
-			}
-		}
+		
 	}
 	LinkedList(LinkedList<T>&& other) noexcept {
 		head = other.head;

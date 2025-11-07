@@ -151,6 +151,7 @@ public:
             front_ = 0;
             back_ = size_;
             data_[back_] = item;
+            back_ = (back_ + 1) % capacity_;
             size_++;
         }
         else {

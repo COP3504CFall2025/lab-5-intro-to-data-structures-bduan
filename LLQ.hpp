@@ -20,6 +20,9 @@ public:
 
     // Deletion
     T dequeue() override {
+        if (list.getHead() == nullptr) {
+            throw std::runtime_error("empty, nothing to remove");
+        }
         T temp = list.getHead()->data;
         list.RemoveHead();
         return temp;

@@ -25,8 +25,8 @@ public:
     }
     explicit ABQ(const size_t capacity) {
         capacity_ = capacity;
-        curr_size__ = 0;
-        array = new T[capacity_];
+        curr_size_ = 0;
+        array_ = new T[capacity_];
     }
     ABQ(const ABQ& other) {
         this->capacity_ = other.capacity_;
@@ -38,43 +38,43 @@ public:
         }
     }
     ABQ& operator=(const ABQ& rhs) {
-        this->capacity_ = other.capacity_;
-        this->curr_size_ = other.curr_size_;
-        this->array_ = other.array_;
-
-        other.capacity_ = 0;
-        other.curr_size_ = 0;
-        other->array_ = nullptr;
-    }
-    ABQ(ABQ&& other) noexcept {
-        if (this == &other) {
+        if (this == &rhs) {
             return *this;
         }
 
-        T* temp = new T[other.capacity_];
+        T* temp = new T[rhs.capacity_];
         delete this->array_;
 
-        this->capacity_ = other.capacity_;
-        this->curr_size_ = other.curr_size_;
+        this->capacity_ = rhs.capacity_;
+        this->curr_size_ = rhs.curr_size_;
         this->array_ = temp;
 
         for (size_t i = 0; i < other.capacity_; i++) {
-            this->array_[i] = other.array_[i];
+            this->array_[i] = rhs.array_[i];
         }
         return *this;
     }
-    ABQ& operator=(ABQ&& rhs) noexcept {
-        if (this == &other) {
-            return *this;
-        }
-        delete this->array_;
+    ABQ(ABQ&& other) noexcept {
         this->capacity_ = other.capacity_;
         this->curr_size_ = other.curr_size_;
         this->array_ = other.array_;
 
         other.capacity_ = 0;
         other.curr_size_ = 0;
-        other->array_ = nullptr;
+        other.array_ = nullptr;
+    }
+    ABQ& operator=(ABQ&& rhs) noexcept {
+        if (this == &rhs) {
+            return *this;
+        }
+        delete this->array_;
+        this->capacity_ = rhs.capacity_;
+        this->curr_size_ = rhs.curr_size_;
+        this->array_ = rhs.array_;
+
+        rhs.capacity_ = 0;
+        rhs.curr_size_ = 0;
+        rhs.array_ = nullptr;
 
         return *this;
     }
@@ -125,6 +125,7 @@ public:
     // Deletion
     T dequeue() override {
         if (curr_size_ > 0) {
+            T tempVal = array_[curr_size_ - 1];
             --curr_size_;
             T* temp = new T[curr_size_];
             for (size_t i = 1; i < curr_size_; i++) {
@@ -132,6 +133,7 @@ public:
             }
             delete[] array_;
             array_ = temp;
+            return tempVal;
         }
         else {
             throw std::runtime_error("Out of range");

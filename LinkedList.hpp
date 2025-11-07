@@ -13,14 +13,14 @@ public:
     Node* next;
 	};
 	// Behaviors
-	void printForward() const {
+	void PrintForward() const {
 		Node* temp = head;
 		while (temp != nullptr) {
 			std::cout << temp.data << std::endl;
 		}
 		temp = temp.next();
 	}
-	void printReverse() const {
+	void PrintReverse() const {
 		Node* temp = tail;
 		while (temp != nullptr) {
 			std::cout << temp.data<< std::endl;
@@ -140,10 +140,10 @@ public:
 		}
 		else {
 			head = new Node(other->head);
-			Node* tempList = list->head->next;
+			Node* tempList = other->head->next;
 			if (tempList->head != tempList->tail) {
 				tempList = tempList->next;
-				while (count != list.count) {
+				while (count != other.count) {
 					AddTail(new Node(tempList->head));
 					tempList = tempList->next;
 				}	

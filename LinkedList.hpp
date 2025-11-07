@@ -152,6 +152,8 @@ public:
 		other.head = nullptr;
 		other.tail = nullptr;
 		other.count = 0;
+
+		return *this;
 	}
 	LinkedList<T>& operator=(const LinkedList<T>& rhs) {
 		if (this == &rhs) {

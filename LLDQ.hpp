@@ -32,7 +32,7 @@ public:
         }
         else {
             T temp = list.getHead();
-            list.removeHead();
+            list.RemoveHead();
             return temp;
         }
     }
@@ -42,17 +42,17 @@ public:
         }
         else {
             T temp = list.getTail();
-            list.removeTail();
+            list.RemoveTail();
             return temp;
         }
     }
 
     // Element Accessors
     const T& front() const override {
-        return list.getHead();
+        return list.getHead().data;
     }
     const T& back() const override {
-        return list.getTail();
+        return list.getTail().data;
     }
 
     // Getter

@@ -23,15 +23,17 @@ public:
 		Node* temp = head;
 		while (temp != nullptr) {
 			std::cout << temp->data << std::endl;
+			temp = temp->next;
 		}
-		temp = temp->next;
+		
 	}
 	void PrintReverse() const {
 		Node* temp = tail;
 		while (temp != nullptr) {
 			std::cout << temp->data<< std::endl;
+			temp = temp->prev;
 		}
-		temp = temp->prev;
+		
 	}
 
 	// Accessors
@@ -143,20 +145,13 @@ public:
 
 		Clear();
 		
-		if (other.count == 0) {
-			head = nullptr;
-			tail = nullptr;
-			count = 0;
-			return *this;
-		}
-		else {
-			Node* temp = other.head;
-			while (temp != nullptr) {
-				AddTail(temp->data);
-				temp = temp->next;
-			}
-			return *this;
-		}
+		head = other.head;
+		tail = other.tail;
+		count = other.count;
+
+		other.head = nullptr;
+		other.tail = nullptr;
+		other.count = 0;
 	}
 	LinkedList<T>& operator=(const LinkedList<T>& rhs) {
 		if (this == &rhs) {

@@ -46,7 +46,7 @@ public:
 	}
 
 	// Insertion	
-	void addHead(const T& data) {
+	void AddHead(const T& data) {
 		Node* newHead = new Node(data);
 		if (head == nullptr) {
 			head = newHead;
@@ -58,7 +58,7 @@ public:
 		}
 		count++;
 	}
-	void addTail(const T& data) {
+	void AddTail(const T& data) {
 		Node* newTail = new Node(data);
 		if (head == nullptr) {
 			tail = newTail;
@@ -80,13 +80,14 @@ public:
 			Node* tempHead = head;
 			head = nullptr;
 			tail = nullptr;
+			delete tempHead;
 		}
 		else {
 			Node* tempHead = head;
 			head = head->next;
 			head->prev = nullptr;
+			delete tempHead;
 		}
-		delete tempHead;
 		count--;
 		return true;
 	}
@@ -98,13 +99,14 @@ public:
 			Node* tempTail = tail;
 			tail = nullptr;
 			head = nullptr;
+			delete tempTail;
 		}
 		else {
 			Node* tempTail = tail;
 			tail = tail->prev;
 			tail->next = nullptr;
+			delete tempTail;
 		}
-		delete tempTail;
 		count--;
 		return true;
 	}
@@ -133,7 +135,7 @@ public:
 		delete head;
 		delete tail;
 		count = 0;
-		if (list.count == 0) {
+		if (other.count == 0) {
 			head = nullptr;
 		}
 		else {
@@ -150,20 +152,20 @@ public:
 		return this;
 	}
 	LinkedList<T>& operator=(const LinkedList<T>& rhs) {
-		if (this == other) {
-			return other;
+		if (this == &rhs) {
+			return *this;
 		}
 		delete head;
 		delete tail;
-		head = other.head;
-		tail = other.tail;
-		count = other.count;
+		head = rhs.head;
+		tail = rhs.tail;
+		count = rhs.count;
 
-		other.head = nullptr;
-		other.tail = nullptr;
-		other.count = 0;
+		rhs.head = nullptr;
+		rhs.tail = nullptr;
+		rhs.count = 0;
 
-		return this;
+		return *this;
 	}
 
 	// Construction/Destruction

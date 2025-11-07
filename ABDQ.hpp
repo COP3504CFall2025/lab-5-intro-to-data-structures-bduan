@@ -52,7 +52,7 @@ public:
         this->data_ = other.data_;
 
         other.data_ = nullptr;
-        other.capacity = 0;
+        other.capacity_ = 0;
         other.size_ = 0;
         other.front_ = 0;
         other.back_ = 0;

@@ -30,10 +30,10 @@ public:
     }
     ABQ(const ABQ& other) {
         this->capacity_ = other.capacity_;
-        this->curr_size__ = other.curr_size__;
+        this->curr_size_ = other.curr_size_;
         this->array_ = new T[other.capacity_];
 
-        for (size_t i = 0; i < other.capacity_; i++) {
+        for (size_t i = 0; i < other.curr_size_; i++) {
             this->array_[i] = other.array_[i];
         }
     }
@@ -43,13 +43,13 @@ public:
         }
 
         T* temp = new T[rhs.capacity_];
-        delete this->array_;
+        delete[] this->array_;
 
         this->capacity_ = rhs.capacity_;
         this->curr_size_ = rhs.curr_size_;
         this->array_ = temp;
 
-        for (size_t i = 0; i < rhs.capacity_; i++) {
+        for (size_t i = 0; i < rhs.curr_size_; i++) {
             this->array_[i] = rhs.array_[i];
         }
         return *this;
@@ -67,7 +67,7 @@ public:
         if (this == &rhs) {
             return *this;
         }
-        delete this->array_;
+        delete[] this->array_;
         this->capacity_ = rhs.capacity_;
         this->curr_size_ = rhs.curr_size_;
         this->array_ = rhs.array_;
@@ -98,41 +98,35 @@ public:
 
     // Insertion
     void enqueue(const T& data) override {
-        if (capacity_ == 0) {
-            T* temp = new T[1];      
-            capacity_ = 1;   
-            delete[] array_;
-            array_ = temp;
-        }
-        else {
             if (curr_size_ == capacity_) {
-                capacity_*=2;
-                T* temp = new T[capacity_ * scale_factor_];
+                capacity_*=scale_factor_;
+                T* temp = new T[capacity_];
                 for (size_t i = 0; i < curr_size_; i++) {
                     temp[i] = array_[i];
                 }
             delete[] array_;
             array_ = temp;
             }
-            
-        }
-        array_[curr_size_] = data;
-        curr_size_++;
+            array_[curr_size_] = data;
+            curr_size_++;
     }
 
     // Access
     T peek() const override {
+        if (array_ == nullptr) {
+            throw std::runtime_error("empty array");
+        }
         return array_[0];
     }
 
     // Deletion
     T dequeue() override {
         if (curr_size_ > 0) {
-            T tempVal = array_[curr_size_ - 1];
+            T tempVal = array_[0];
             --curr_size_;
             T* temp = new T[curr_size_];
-            for (size_t i = 1; i < curr_size_; i++) {
-                    temp[i] = array_[i];
+            for (size_t i = 0; i < curr_size_; i++) {
+                    temp[i] = array_[i + 1];
             }
             delete[] array_;
             array_ = temp;

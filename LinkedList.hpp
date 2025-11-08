@@ -120,7 +120,7 @@ public:
 		count--;
 		return true;
 	}
-	void Clear() {
+	void clear() {
 		while (head != nullptr && head != tail){
 			Node* temp = head;
 			head = head->next;
@@ -164,7 +164,7 @@ public:
 		Node* temp = rhs.head;
 
 		while (temp != nullptr) {
-				AddTail(temp->data);
+				addTail(temp->data);
 				temp = temp->next;
 		}
 
@@ -184,7 +184,7 @@ public:
 		count = 0;
 		Node* temp = list.head;
 		while (temp != nullptr) {
-			AddTail(temp->data);
+			addTail(temp->data);
 			temp = temp->next;
 		}
 		

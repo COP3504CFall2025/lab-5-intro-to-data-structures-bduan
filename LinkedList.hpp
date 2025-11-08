@@ -27,7 +27,7 @@ public:
 		}
 		
 	}
-	void PrintReverse() const {
+	void printReverse() const {
 		Node* temp = tail;
 		while (temp != nullptr) {
 			std::cout << temp->data<< std::endl;
@@ -54,7 +54,7 @@ public:
 	}
 
 	// Insertion	
-	void AddHead(const T& data) {
+	void addHead(const T& data) {
 		Node* newHead = new Node(data);
 		if (head == nullptr) {
 			head = newHead;
@@ -67,7 +67,7 @@ public:
 		}
 		count++;
 	}
-	void AddTail(const T& data) {
+	void addTail(const T& data) {
 		Node* newTail = new Node(data);
 		if (head == nullptr) {
 			tail = newTail;
@@ -82,7 +82,7 @@ public:
 	}
 
 	// Removal
-	bool RemoveHead() {
+	bool removeHead() {
 		if (head == nullptr) {
 			return false;
 		}
@@ -101,7 +101,7 @@ public:
 		count--;
 		return true;
 	}
-	bool RemoveTail() {
+	bool removeTail() {
 		if (tail == nullptr) {
 			return false;
 		}
@@ -178,6 +178,7 @@ public:
 		count = 0;
 	}
 	LinkedList(const LinkedList<T>& list) {
+		//chatgpt used to define what a conditional jump error is 
 		head = nullptr;
 		tail = nullptr;
 		count = 0;

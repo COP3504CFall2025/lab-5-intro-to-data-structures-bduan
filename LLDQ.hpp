@@ -19,10 +19,10 @@ public:
 
     // Core Insertion Operations
     void pushFront(const T& item) override {
-        list.AddHead(item);
+        list.addHead(item);
     }
     void pushBack(const T& item) override {
-        list.AddTail(item);
+        list.addTail(item);
     }
 
     // Core Removal Operations - remember to throw error if there is nothing to pop
@@ -32,7 +32,7 @@ public:
         }
         else {
             T temp = list.getHead()->data;
-            list.RemoveHead();
+            list.removeHead();
             return temp;
         }
     }
@@ -42,7 +42,7 @@ public:
         }
         else {
             T temp = list.getTail()->data;
-            list.RemoveTail();
+            list.removeTail();
             return temp;
         }
     }

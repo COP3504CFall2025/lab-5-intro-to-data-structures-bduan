@@ -113,7 +113,7 @@ public:
 
     // Access
     T peek() const override {
-        if (array_ == nullptr) {
+        if (curr_size_ == 0) {
             throw std::runtime_error("empty array");
         }
         return array_[0];

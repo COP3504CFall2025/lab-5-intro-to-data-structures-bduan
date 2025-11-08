@@ -96,32 +96,29 @@ public:
     // Push item onto the stack
     void push(const T& data) override {
         // code/concepts taken from iDynamArray lab
-        if (capacity__ == 0) {
-            T* temp = new T[1];      
-            capacity__ = 1;   
-        }
-        else {
-            if (curr_size__ == capacity__) {
-                capacity__*=scale_factor_;
-                T* temp = new T[capacity];
-                for (size_t i = 0; i < curr_size__; i++) {
-                    temp[i] = array_[i];
-                }
+        if (curr_size__ == capacity__) {
+            capacity__*=scale_factor_;
+            T* temp = new T[capacity__];
+            for (size_t i = 0; i < curr_size__; i++) {
+                temp[i] = array_[i];
             }
+            delete[] array_;
+            array_ = temp;
         }
-        delete[] array_;
-        array_ = temp;
         array_[curr_size__] = data;
         curr_size__++;
     }
 
     T peek() const override {
+        if (curr_size__ == 0) {
+            throw std::runtime_error("empty array");
+        }
         return array_[curr_size__];
     }
 
     T pop() override {
         if (curr_size__ > 0) {
-            T tempVal = array_[curr_size - 1];
+            T tempVal = array_[curr_size__ - 1];
             --curr_size__;
             T* temp = new T[curr_size__];
             for (size_t i = 0; i < curr_size__; i++) {

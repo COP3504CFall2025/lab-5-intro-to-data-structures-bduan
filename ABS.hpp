@@ -36,13 +36,13 @@ public:
         }
 
         T* temp = new T[rhs.capacity__];
-        delete this->array_;
+        delete[] this->array_;
 
         this->capacity__ = rhs.capacity__;
         this->curr_size__ = rhs.curr_size__;
         this->array_ = temp;
 
-        for (size_t i = 0; i < rhs.capacity__; i++) {
+        for (size_t i = 0; i < rhs.curr_size__; i++) {
             this->array_[i] = rhs.array_[i];
         }
         return *this;
@@ -60,7 +60,7 @@ public:
         if (this == &rhs) {
             return *this;
         }
-        delete this->array_;
+        delete[] this->array_;
         this->capacity__ = rhs.capacity__;
         this->curr_size__ = rhs.curr_size__;
         this->array_ = rhs.array_;
@@ -113,7 +113,7 @@ public:
         if (curr_size__ == 0) {
             throw std::runtime_error("empty array");
         }
-        return array_[curr_size__];
+        return array_[curr_size__ - 1];
     }
 
     T pop() override {

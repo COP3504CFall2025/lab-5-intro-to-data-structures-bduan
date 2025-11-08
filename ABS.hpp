@@ -120,7 +120,10 @@ public:
         if (curr_size__ > 0) {
             T tempVal = array_[curr_size__ - 1];
             --curr_size__;
-            T* temp = new T[curr_size__];
+            if (curr_size__ <= capacity__ / 4) {
+                capacity__ /= 2;
+            }
+            T* temp = new T[capacity__];
             for (size_t i = 0; i < curr_size__; i++) {
                     temp[i] = array_[i];
             }

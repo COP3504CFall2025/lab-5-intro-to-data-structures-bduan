@@ -143,7 +143,7 @@ public:
 			return *this;
 		}
 
-		Clear();
+		clear();
 		
 		head = other.head;
 		tail = other.tail;
@@ -159,7 +159,7 @@ public:
 		if (this == &rhs) {
 			return *this;
 		}
-		Clear();
+		clear();
 
 		Node* temp = rhs.head;
 
@@ -199,7 +199,7 @@ public:
 		other.count = 0;
 	}
 	~LinkedList() {
-		Clear();
+		clear();
 	}
 
 private:

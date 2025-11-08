@@ -124,8 +124,8 @@ public:
         if (curr_size_ > 0) {
             T tempVal = array_[0];
             --curr_size_;
-            if (curr_size_ <= capacity_ / 4) {
-                capacity_ /=4;
+            if (curr_size_ <= capacity_ / 2) {
+                capacity_ /=2;
             }
             T* temp = new T[capacity_];
             for (size_t i = 0; i < curr_size_; i++) {
